@@ -77,25 +77,13 @@
 &nbsp;
 ## 2. 🔧 구성 요소
 
-| 구성 요소            | 설명                                                                 | 이미지 |
-|---------------------|----------------------------------------------------------------------|--------|
-| **Arduino Nano 33 BLE Sense** | EOG 센서로부터 신호를 받아 실시간으로 시선 방향을 분석하고, 딥러닝 모델을 통해 판단된 결과에 따라 로봇팔을 제어함. | <img width="300" src="https://github.com/user-attachments/assets/5a5c921e-9021-4990-8892-2aa33eaebafc" /> |
-| **PSL-iEOG2 EOG 센서**        | 안구 전위(Electrooculogram)를 감지하여 눈의 좌우 움직임과 깜빡임 등을 아날로그 신호로 출력함.           | <img width="300" src="https://github.com/user-attachments/assets/dc2073be-53a0-4884-b0e6-b9ad2de862f3" /> |
-| **서보 모터 (SG90 / MG995)** | 로봇팔 관절을 구동하여 시선 방향에 따라 원하는 위치로 움직임을 수행함. MG995는 힘이 필요한 부위, SG90은 가벼운 부위에 사용됨. | <img width="300" src="https://github.com/user-attachments/assets/97048b8f-518e-4930-895a-cad75dea3428" /> |
-| **3D 프린터 로봇팔** | 실제 음식을 집을 수 있도록 설계된 로봇 팔 구조물. 3D 프린터로 출력하여 사용자 맞춤형 형태로 제작 가능.         | <img width="300" src="https://github.com/user-attachments/assets/2814adce-4669-40f8-b355-288e6d7c45f6" /> |
+| 구성 요소                           | 설명                                                                                         | 
+|------------------------------------|----------------------------------------------------------------------------------------------|
+| **Unity**                          | 자율주행 시스템 전체 시뮬레이션을 구성하는 데 사용된 엔진. 물리 기반 시뮬레이션 및 Raycast 활용. |
+| **SimplePoly City – Low Poly Assets** | 경량 도시 환경을 구성하기 위한 로우 폴리 모델 패키지. CPU/GPU 성능을 최적화하며 다양한 도로, 건물, 환경 요소 포함. |
 
-- PSL-iEOG2 : 168,960원
-- arudino Nano 33 BLE : 59,900원
-- TowerProM mg995 모터 4개 : 26000원
-- SG-90 모터 2개 :２,800원
-- AA*3 배터리팩 4개 : 4000원
-- AA 배터리 5개 : 13500원
-- 아두이노 우노 2개 :19800원
-- 배터리 3구 홀더 2개 : 1980원
-- breadboard 1개 : 800원
-- arudino uno R3 : 26500원
-- arudino nano : 29100원
-- breadboard Jumper 18개 : 43200원
+<img width="1299" height="719" alt="image" src="https://github.com/user-attachments/assets/f8dc8a55-2078-4ec2-a6f0-f4e6bb257af4" />
+
 
 &nbsp;
 
@@ -114,133 +102,94 @@
 &nbsp;
 ## 4. 🧭 동작 흐름 요약
 
-<img width="652" height="473" alt="image" src="https://github.com/user-attachments/assets/340626b4-d98d-4b9c-bfdc-103f4d0fc735" />
+## 🏥 1. 병원 시스템 (Hospital System)
 
-&nbsp;
+<img width="600" alt="병원 시스템 이미지1" src="https://github.com/user-attachments/assets/0166dceb-dda2-4f6e-95df-c504b9aa02f0" />
+<img width="300" alt="병원 시스템 이미지2" src="https://github.com/user-attachments/assets/a5ddc868-2ccf-4d4d-a410-53f0ded87d1e" />
 
-### 📡 EOG 수집
-EOG란 각막과 망막 간 전위를 측정 결과 발생하는 신호로 눈의 움직임을 기록할 때 주로 사용된다.  
-피지오랩사의 PSL EOG 센서를 이용하여 안구전도를 측정하였고, 아두이노 나노와 연결하여 Arduino IDE 및 Serial SW를 통해 측정 결과를 확인하였다.
+병원 시스템은 크게 **환자(People)**, **병원(Hospitals)**, **앰뷸런스(Ambulances)**의 세 가지 요소로 구성됩니다.
 
-이번 논문에서는 눈의 좌우에 전극을 배치하여 horizontal한 EOG를 얻었다.  
-전극은 총 3개로 양안의 좌우와 이마 중앙에 부착하여 전압차이를 각각 측정할 수 있다.
+### 📌 시스템 구성 흐름
 
-- PSL 센서는 2채널 신호를 제공 (아날로그, 디지털)  
-- 이 중 아날로그 신호만 사용  
-- 750V/V 증폭도  
-- 60Hz notch filter 포함  
-- 0.05Hz cutoff frequency의 high pass filter  
-- 10Hz cutoff frequency의 low pass filter  
-- 출력 전압: 0~3.3V
+1. **환자 요청 발생**
+   - 환자의 요청은 **포아송 분포(Poisson Distribution)**를 기반으로 무작위로 생성되며,  
+     각 요청은 **증상(Symptom)**과 **위급도(Severity: 1~5)** 정보를 포함합니다.
+   - 증상 종류: 신경외과, 심장과, 내과, 외과, 흉부외과, 소아과, 정신과, 산부인과 등
 
-<img width="797" height="281" alt="image" src="https://github.com/user-attachments/assets/408c7b3e-a216-483f-af66-ad0f24a5c994" />
+2. **병원 선택 기준**
+   - 해당 증상과 위급도에 맞는 의료 인력이 단 한 곳의 병원에만 존재할 경우, 해당 병원으로 바로 배정됩니다.
+   - 여러 병원이 가능한 경우, 아래 기준으로 **우선순위 점수(Priority Score)**를 계산합니다:
+     - **거리 순위(Proximity Rank)**: 가장 가까운 병원 = 1, 두 번째 = 2 ...
+     - **혼잡도 점수(Congestion Score)**: 낮음 = 1, 높음 = 2
+     - → 두 값을 합산하여 총점이 가장 낮은 병원을 선택  
+     - 점수가 동일한 경우에는 무작위로 하나를 선택
 
-<img width="807" height="404" alt="image" src="https://github.com/user-attachments/assets/937b0241-c563-4d71-8d9b-f2b6f350d047" />
+3. **앰뷸런스 배정 및 출동**
+   - 가장 가까운 대기 중인 앰뷸런스를 환자에게 배정  
+   - 가장 가까운 앰뷸런스가 사용 중일 경우, 그다음 가까운 대기 앰뷸런스를 배정  
+   - 배정된 앰뷸런스는 환자 위치로 이동 → 환자 픽업 → 지정 병원으로 이송
 
-분석을 위해 먼저 데이터 전처리를 수행하였다.
+4. **대기 리스트 관리**
+   - 사용 가능한 앰뷸런스가 없을 경우, 요청은 **대기 리스트(Waitlist)**에 추가  
+   - 앰뷸런스가 이송을 마치고 복귀하면, 대기 리스트에서 **순차적으로** 다음 요청을 처리
 
-- Sampling frequency를 125Hz로 downsampling  
-- 평균 값 제거 및 scale 확대를 통해 데이터를 더 정확히 파악  
-- 1초 간격으로 정면과 left (또는 right)를 바라봄  
-- 2초 간격 (250 sample) 으로 EOG를 분리하여 확인
+---
 
-결과를 보면 왼쪽과 오른쪽을 바라봤을 때의 EOG 파형은 차이가 있었다.  
-- 왼쪽 → 중앙에서 아래로 떨어지는 파형  
-- 오른쪽 → 위로 튀는 파형  
+## 🚑 2. 앰뷸런스 - 차선 인식 시스템 (Lane Detection)
 
-전체 데이터 셋에서 확인해보면 아래와 같은 파형이다.
+<img width="800" alt="차선 인식 이미지" src="https://github.com/user-attachments/assets/f48e8c97-4ac4-41ff-b5e2-11432cd82aee" />
 
-> 특히 현재 측정 중인 EOG는 안구 움직임의 변화를 측정하기 때문에  
-> 왼쪽과 오른쪽 EOG 간의 데이터 절대값 크기는 큰 차이가 없었으며,  
-> threshold로 단순 분류하기엔 한계가 있었다.
+- 차량에 장착된 **카메라가 1초마다 도로 이미지를 캡처**
+- OpenCV를 통해 다음 과정을 거쳐 차선을 검출:
+  1. 관심 영역(ROI) 설정
+  2. 그레이스케일 변환
+  3. Canny 엣지 검출
+  4. 허프 변환(Hough Transform)으로 선 인식
 
-<img width="800" height="233" alt="image" src="https://github.com/user-attachments/assets/099fff83-1609-4978-b938-a644da3eaa8b" />
+### 🛣️ 도로 구조
+- **4차선 구조 (2개 차선 × 양방향)**
+- 선은 세 가지로 분류:
+  - 중앙선 (Central Line)
+  - 점선 (Dashed Line)
+  - 가장자리 선 / 진입 금지 (Edge / Not Walkable)
 
-&nbsp;
+### 🚘 차선 정의
+- **Lane 1**: 점선과 가장자리 선 사이  
+  → 카메라 뷰: `중앙선 → 점선 → 가장자리 선` → 현재 차량은 Lane 1
+- **Lane 2**: 중앙선과 점선 사이  
+  → 카메라 뷰: `점선1 → 중앙선 → 점선2` → 현재 차량은 Lane 2
 
-### 🔀 기울기 기반 분석
+> 일반 차량은 Lane 1 또는 Lane 2에서만 주행 가능하며,  
+> **앰뷸런스는 필요 시 중앙선을 넘어갈 수 있음** (단, 주변 차량이 없을 때만 허용)
 
-처음 방향 변화가 일어난 순간에만 EOG 변화의 기울기가 다른 것을 확인하였다.  
-따라서 **안구 움직임 변화 직후 5초간의 EOG 데이터를 수집하고, 미분값으로 데이터셋을 구성**하였다.
+<img width="600" alt="차선 예시 이미지" src="https://github.com/user-attachments/assets/d0f8b8cb-1e9c-45c3-a1b2-ff88ea31dd2a" />
 
-<img width="800" height="249" alt="image" src="https://github.com/user-attachments/assets/6ff94c7b-98b6-4777-b3ae-cfd5dbbab40b" />
+---
 
-- 번갈아가며 30도, 90도 시선 전환 실험  
-- 수치적으로 큰 차이는 없음  
-→ 왼쪽, 오른쪽, 가운데만 분류한 후 **횟수로 각도 조절**
+## 🚨 3. 앰뷸런스 - 충돌 회피 시스템 (Avoid Collision)
 
-&nbsp;
+<img width="700" alt="충돌 회피 이미지" src="https://github.com/user-attachments/assets/4e8172a8-2391-4780-b1a5-45abf2317cdf" />
 
-### 🤖 모델 제작
+- **Unity의 Raycast**를 사용하여 차량 전방 **20m 이내**에 다른 차량이 있는지 탐지  
+- 감지 시 **자동으로 회피 동작 수행**
 
-- 각 데이터셋을 `SAMPLES_PER_EOG` 값인 5개 샘플로 나눠 데이터프레임에 저장  
-- 각각 1차원 배열로 변환 후 `inputs` 리스트에 저장 
+### ⚙️ 속도 제어
+- 기본 속도: `5f`  
+- 감속 시: `3f`  
+- 가속 시: 최대 `7f`
 
-<img width="700" height="159" alt="image" src="https://github.com/user-attachments/assets/cd734c30-e586-48d6-a6b2-b6d0f463d68a" />
+### 🚧 회피 시나리오
 
-- 해당 세그먼트가 나타내는 눈동자 움직임 유형: `left`, `right`, `center`  
-- 이를 one-hot encoding하여 `outputs` 리스트에 저장
+1. **일반 차량 또는 앰뷸런스 간 회피**
+   - 인접 차선이 비어 있으면 → 해당 차선으로 **차선 변경**
+   - 인접 차선이 막혀 있으면 → **속도 감속**
 
-&nbsp;
+2. **앰뷸런스 vs 일반 차량**
+   - 인접 차선이 비어 있으면 → 앰뷸런스가 **차선 변경 후 가속**
+   - 인접 차선이 막혀 있지만, 앞 차량이 이동 가능하면 → **앞 차량이 가속하여 공간 확보**
+     - 앰뷸런스는 그대로 주행하며 속도를 높임
+   - 앞 차량도 이동 불가능한 경우 → **기존 차선 및 속도 유지**
 
-### 🤖 모델 비교 및 선정
-
-EOG 방향 분류를 위한 3가지 모델을 구현하고 성능 비교 후 최종 모델 선정
-
-- CNN: 정확도 80.7%  
-- SVM: 정확도 88.8%  
-- **LSTM: 정확도 92.5% → 최종 선택**
-
-<img width="700" height="300" alt="image" src="https://github.com/user-attachments/assets/e5efd2e9-1446-4b7b-b44f-40b92dc432a2" />
-
-<img width="1059" height="598" alt="image" src="https://github.com/user-attachments/assets/974decef-c945-4a01-bc82-730f28b3d2e4" />
-
-&nbsp;
-
-### 🛠️ 로봇팔 3D 프린팅 및 조립
-
-- 복잡하고 정밀한 작업을 수행 가능한 6 DOF 로봇팔을 설계  
-- 3D 모델링 진행 후 부품 제작 및 조립  
-- 모터 구성:  
-  - MG995 (기저 회전, 어깨 2개, 팔꿈치)  
-  - SG90 (팔목, 집게)
-
-<img width="800" height="253" alt="image" src="https://github.com/user-attachments/assets/b0077c95-b36c-4cac-a398-0931d86e590d" />
-
-&nbsp;
-
-### 🔌 회로 구성
-
-- 각 모터 전선을 연장 후 Arduino 보드 핀 번호에 맞게 연결  
-- 모터에 강한 힘을 주기 위해 5V 파워 서플라이를 별도 연결  
-- 전력 손실 최소화를 위해 짧은 점프선 사용
-
-&nbsp;
-
-### 💻 Arduino 코드 구성
-
-- 사용 보드: **Arduino Nano 33 BLE Sense**  
-- Arduino 코드로 서보모터 제어 → 로봇팔 동작 구현
-- 각 모터의 핀과 각도 제어를 통해 **정확한 집기 동작** 구현
-
-<img width="1119" height="759" alt="image" src="https://github.com/user-attachments/assets/0052be4e-ef41-47a7-84c9-b2604e01437f" />
-
-<img width="1124" height="723" alt="image" src="https://github.com/user-attachments/assets/58e24a3b-5bac-46b5-af82-9e61803bb4fe" />
-
-&nbsp;
-
-### 🔁 방향 전환 로직
-
-- EOG 센서를 이용해 방향 전환 감지  
-- 상태 머신 설계(State Machine)로 방향에 따라 로봇팔 동작 분기
-
-<img width="1124" height="629" alt="image" src="https://github.com/user-attachments/assets/6f8ef34f-51cc-4cb8-92f0-d392a9d9a9fc" />
-
-<img width="440" height="158" alt="image" src="https://github.com/user-attachments/assets/58844b15-6e3e-4815-a592-17cf558783b1" />
-
-<img width="883" height="399" alt="image" src="https://github.com/user-attachments/assets/1d651cbf-0edd-45bf-aee6-c6f938ea0c28" />
-
-&nbsp;
 
 ## ✅ 결과
 
