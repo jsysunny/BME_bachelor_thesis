@@ -152,7 +152,10 @@
   2. 그레이스케일 변환
   3. Canny 엣지 검출
   4. 허프 변환(Hough Transform)으로 선 인식
+     
+&nbsp;
 
+<img width="600" alt="차선 예시 이미지" src="https://github.com/user-attachments/assets/d0f8b8cb-1e9c-45c3-a1b2-ff88ea31dd2a" />
 &nbsp;
 
 ### 🛣️ 도로 구조
@@ -173,8 +176,7 @@
 > 일반 차량은 Lane 1 또는 Lane 2에서만 주행 가능하며,  
 > **앰뷸런스는 필요 시 중앙선을 넘어갈 수 있음** (단, 주변 차량이 없을 때만 허용)
 
-<img width="600" alt="차선 예시 이미지" src="https://github.com/user-attachments/assets/d0f8b8cb-1e9c-45c3-a1b2-ff88ea31dd2a" />
-
+<img width="690" height="786" alt="image" src="https://github.com/user-attachments/assets/d245385a-1ea6-41eb-9a7c-a62a2f68be7e" />
 
 &nbsp;
 
@@ -214,36 +216,14 @@
 
 ## ✅ 결과
 
-<img width="857" height="341" alt="image" src="https://github.com/user-attachments/assets/3a3af50d-4ca5-4de7-8538-c315d31d9a54" />
+<img width="1918" height="902" alt="image" src="https://github.com/user-attachments/assets/957f936b-e052-42ed-8a18-5f0a3f1ba203" />
 
-- 사용자의 눈 움직임만으로 로봇팔이 정확한 방향 전환 및 집기 동작 성공  
-- LSTM 기반 EOG 분류 모델과 로봇팔 동작 시스템의 실시간 연동 가능성 확인
-
-&nbsp;
-
-
-## 5. 💻 코드 실행 방법
-
-### 🤖 EogDeepLearning-Robot
-- 코드: [`eog_deeplearning`](./Arduino/Arduino/eog_deeplearning/eog_deeplearning-DESKTOP-O965BML.ino)
 
 
 &nbsp;
 
 
-
-## 6. 📷 시연 영상 / 이미지
-### 경희대학교 전자공학과 졸업논문 발표
-<img width="670" height="481" alt="image" src="https://github.com/user-attachments/assets/ee818f96-756f-4eaf-9bdc-710e653cd323" />
-
-&nbsp;
-
-### 경희대학교 캡스톤 디자인 대회 최우수상
-![캡스톤디자인대회전체사진](https://github.com/user-attachments/assets/d9fc142f-a1ec-436a-888b-d0d8fbc1dbe4)
-
-![캡스톤디자인대회최우수상](https://github.com/user-attachments/assets/9c34a8d0-3c7f-4ca7-8bd4-0bce211a80c4)
-
-&nbsp;
+## 5. 📷 시연 영상 / 이미지
 
 > https://youtu.be/0Lg0ZxRh0jA
 
@@ -286,8 +266,3 @@ EOG 센서를 이용한 로봇팔 제어 기술은 **생체 신호 기반의 정
 > 우리의 삶에 **긍정적인 영향**을 미치기를 기대합니다.
 
 &nbsp;
-## 🙌 팀원
-
--윤하연, 정서윤, 안병호 
-
-
