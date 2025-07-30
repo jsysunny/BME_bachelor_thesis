@@ -107,7 +107,11 @@
 <img width="600" alt="병원 시스템 이미지1" src="https://github.com/user-attachments/assets/0166dceb-dda2-4f6e-95df-c504b9aa02f0" />
 <img width="300" alt="병원 시스템 이미지2" src="https://github.com/user-attachments/assets/a5ddc868-2ccf-4d4d-a410-53f0ded87d1e" />
 
-병원 시스템은 크게 **환자(People)**, **병원(Hospitals)**, **앰뷸런스(Ambulances)**의 세 가지 요소로 구성됩니다.
+&nbsp;
+
+병원 시스템은 크게 **환자(People)**, **병원(Hospitals)**, **앰뷸런스(Ambulances)** 의 세 가지 요소로 구성됩니다.
+
+&nbsp;
 
 ### 📌 시스템 구성 흐름
 
@@ -133,11 +137,14 @@
    - 사용 가능한 앰뷸런스가 없을 경우, 요청은 **대기 리스트(Waitlist)**에 추가  
    - 앰뷸런스가 이송을 마치고 복귀하면, 대기 리스트에서 **순차적으로** 다음 요청을 처리
 
----
+
+&nbsp;
 
 ## 🚑 2. 앰뷸런스 - 차선 인식 시스템 (Lane Detection)
 
 <img width="800" alt="차선 인식 이미지" src="https://github.com/user-attachments/assets/f48e8c97-4ac4-41ff-b5e2-11432cd82aee" />
+
+&nbsp;
 
 - 차량에 장착된 **카메라가 1초마다 도로 이미지를 캡처**
 - OpenCV를 통해 다음 과정을 거쳐 차선을 검출:
@@ -146,12 +153,16 @@
   3. Canny 엣지 검출
   4. 허프 변환(Hough Transform)으로 선 인식
 
+&nbsp;
+
 ### 🛣️ 도로 구조
 - **4차선 구조 (2개 차선 × 양방향)**
 - 선은 세 가지로 분류:
   - 중앙선 (Central Line)
   - 점선 (Dashed Line)
   - 가장자리 선 / 진입 금지 (Edge / Not Walkable)
+
+&nbsp;
 
 ### 🚘 차선 정의
 - **Lane 1**: 점선과 가장자리 선 사이  
@@ -164,19 +175,27 @@
 
 <img width="600" alt="차선 예시 이미지" src="https://github.com/user-attachments/assets/d0f8b8cb-1e9c-45c3-a1b2-ff88ea31dd2a" />
 
----
+
+&nbsp;
+
 
 ## 🚨 3. 앰뷸런스 - 충돌 회피 시스템 (Avoid Collision)
 
 <img width="700" alt="충돌 회피 이미지" src="https://github.com/user-attachments/assets/4e8172a8-2391-4780-b1a5-45abf2317cdf" />
 
+&nbsp;
+
 - **Unity의 Raycast**를 사용하여 차량 전방 **20m 이내**에 다른 차량이 있는지 탐지  
 - 감지 시 **자동으로 회피 동작 수행**
+
+&nbsp;
 
 ### ⚙️ 속도 제어
 - 기본 속도: `5f`  
 - 감속 시: `3f`  
 - 가속 시: 최대 `7f`
+
+&nbsp;
 
 ### 🚧 회피 시나리오
 
@@ -190,6 +209,8 @@
      - 앰뷸런스는 그대로 주행하며 속도를 높임
    - 앞 차량도 이동 불가능한 경우 → **기존 차선 및 속도 유지**
 
+
+&nbsp;
 
 ## ✅ 결과
 
