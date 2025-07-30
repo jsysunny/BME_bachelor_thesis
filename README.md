@@ -7,10 +7,10 @@
 &nbsp;
 
 ## 🔗 출처 및 라이선스
-1. Autonomous Driving with Unity and BMW: 240 Million Virtual Kilometers -NICK DAVIS
-   https://unity.com/kr/blog/industry/bmw-automotive-lifecycle
-2. Self-Driving Ambulance for Emergency Application -Mainak Kumar Das
-https://ieeexplore.ieee.org/document/9614822
+### 1. Autonomous Driving with Unity and BMW: 240 Million Virtual Kilometers -NICK DAVIS
+ - https://unity.com/kr/blog/industry/bmw-automotive-lifecycle
+### 2. Self-Driving Ambulance for Emergency Application -Mainak Kumar Das
+- https://ieeexplore.ieee.org/document/9614822
 
      
 &nbsp;
@@ -49,12 +49,12 @@ https://ieeexplore.ieee.org/document/9614822
 
 본 시스템은 다음과 같은 점에 중점을 둡니다:
 
-- **카메라 및 OpenCV 기반 차선 인식으로 멀티 차선 도로를 자율적으로 주행**  
-- Unity의 Raycast 기능을 이용하여 **주변 차량을 감지하고, 차선 변경 및 속도 조절 자동 수행**  
-- 환자 상태에 따른 **실시간 우선순위 판단과 자동 경로 설정 기능을 결합**  
-- 병원의 거리, 혼잡도, 전문 진료 가능 여부를 고려하여 **가장 적합한 병원으로 자동 이송**
+- **카메라 및 OpenCV 기반 차선 인식**으로 멀티 차선 도로를 자율적으로 주행  
+- **Unity의 Raycast** 기능을 이용하여 주변 차량을 감지하고, 차선 변경 및 속도 조절 자동 수행  
+- 환자 상태에 따른 **실시간 우선순위 판단과 자동 경로 설정** 기능을 결합  
+- **병원의 거리, 혼잡도, 전문 진료 가능 여부**를 고려하여 가장 적합한 병원으로 자동 이송
 
-이를 통해 **응급 환자의 생존 가능성을 높이고, 전체 응급 시스템의 효율을 향상**시킬 수 있습니다.
+이를 통해 응급 환자의 생존 가능성을 높이고, 전체 응급 시스템의 효율을 향상시킬 수 있습니다.
   
 &nbsp;
 
@@ -62,17 +62,17 @@ https://ieeexplore.ieee.org/document/9614822
 
 본 프로젝트는 다양한 기술 요소를 유기적으로 결합하여 다음과 같은 장점을 가집니다:
 
-- **Unity 시뮬레이터**를 활용한 현실적인 도로 환경 구현  
-- **카메라와 OpenCV 기반의 차선 탐지 알고리즘**으로 자율주행 구현  
-- **Raycast 기반 충돌 회피 로직**으로 안전한 차량 간 거리 유지 및 회피 가능  
-- **병원 데이터와 연동된 실시간 판단 시스템**으로 경로 최적화 및 병원 자동 연결  
+- Unity 시뮬레이터를 활용한 현실적인 도로 환경 구현  
+- 카메라와 OpenCV 기반의 차선 탐지 알고리즘으로 자율주행 구현  
+- Raycast 기반 충돌 회피 로직으로 안전한 차량 간 거리 유지 및 회피 가능  
+- 병원 데이터와 연동된 실시간 판단 시스템으로 경로 최적화 및 병원 자동 연결  
 
 이 시스템은 향후 다음과 같은 영역으로 확장 가능합니다:
 
-- **실제 자율주행 구급차량 시스템에의 적용**
-- **재난 대응용 드론 또는 로봇 응급 구조 시스템과 연계**
-- **스마트 시티 인프라와 연동한 병원-도로 네트워크 구축**
-- **고령자·장애인을 위한 비대면 응급 호출 플랫폼으로 발전**
+- 실제 자율주행 구급차량 시스템에의 적용
+- 재난 대응용 드론 또는 로봇 응급 구조 시스템과 연계
+- 스마트 시티 인프라와 연동한 병원-도로 네트워크 구축
+- 고령자·장애인을 위한 비대면 응급 호출 플랫폼으로 발전
 
 &nbsp;
 ## 2. 🔧 구성 요소
